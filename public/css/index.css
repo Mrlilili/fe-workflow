@@ -1,0 +1,16 @@
+body div {
+  overflow: hidden;
+
+}
+span{
+    background-position: -29px 0;
+}
+p{
+    background-position: 0 0;
+}
+
+/* ../images/index.png */
+span,
+p{
+background-image: url(../images/index.png);
+}

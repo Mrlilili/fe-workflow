@@ -1,0 +1,2 @@
+/*TMODJS:{"version":1,"md5":"b21c99f9fee9110ba151c4bb729217c9"}*/
+define(function(require){return require("./public/header"),require("./public/footer"),require("./template")("index",function(a,b){"use strict";var c=this,d=(c.$helpers,function(d,f){f=f||a;var g=c.$include(d,f,b);return e+=g}),e="";return d("./public/header"),e+=" this is content ",d("./public/footer"),new String(e)})});
