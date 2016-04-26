@@ -1,5 +1,15 @@
 body {
-    div {
-        overflow: hidden;
-    }
+    background: none;
+}
+.avatar{
+    height: 29px;
+    width: 29px;
+
+    background: url("../imgs/slice/avatar.png");
+
+}
+.tu{
+    height:39px;
+    width: 39px;
+    background: url("../imgs/slice/tu.png");
 }

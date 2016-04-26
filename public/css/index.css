@@ -1,16 +1,12 @@
-body div {
-  overflow: hidden;
+body {
+  background: none; }
 
-}
-span{
-    background-position: -29px 0;
-}
-p{
-    background-position: 0 0;
-}
+.avatar {
+  height: 29px;
+  width: 29px;
+  background: url("../imgs/slice/avatar.png"); }
 
-/* ../images/index.png */
-span,
-p{
-background-image: url(../images/index.png);
-}
+.tu {
+  height: 39px;
+  width: 39px;
+  background: url("../imgs/slice/tu.png"); }

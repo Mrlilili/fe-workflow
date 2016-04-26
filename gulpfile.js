@@ -11,9 +11,11 @@ gulp.task('minify-html', function () {
 });
 //Sass编译
 gulp.task('sass', function () {
-    gulp.src('public/sass/*.scss')
-        .pipe(plugins.sass().on('error', plugins.sass.logError))
-        .pipe(gulp.dest('public/css/'));
+    gulp.watch('public/sass/*.scss').on('change', function () {
+        gulp.src('public/sass/*.scss')
+            .pipe(plugins.sass.sync().on('error', plugins.sass.logError))
+            .pipe(gulp.dest('public/css/'));
+    })
 });
 //prefix css
 gulp.task('prefix', function () {
@@ -21,17 +23,25 @@ gulp.task('prefix', function () {
         .pipe(plugins.autoprefixer())
         .pipe(gulp.dest('public/css/'));
 });
-//css文件压缩
-gulp.task('minify-css', function () {
-    gulp.src('public/css/*.css')
-        .pipe(plugins.cleanCss({compatibility: 'ie8'}))
-        .pipe(gulp.dest('./public/css/'));
-});
-//CSS文件合并
-gulp.task('concat-css', function () {
+//CSS文件压缩
+//gulp.task('minify-css', function () {
+//    gulp.src('output/css/*.css')
+//        .pipe(plugins.cleanCss({compatibility: 'ie8'}))
+//        .pipe(gulp.dest('./output/css/'));
+//});
+
+//CSS文件合并压缩
+gulp.task('concatCss', function () {
     gulp.src('public/css/*.css')
         .pipe(plugins.concat('all.css'))
+        .pipe(plugins.cleanCss({compatibility: 'ie8'}))
         .pipe(gulp.dest('./output/css/'))
+});
+//JS压缩
+gulp.task('minifyJs', function () {
+    gulp.src('public/js/*.js')
+        .pipe(plugins.uglify())
+        .pipe(gulp.dest('./output/js/'));
 });
 //JS文件合并
 gulp.task('concat-js', function () {
@@ -39,21 +49,18 @@ gulp.task('concat-js', function () {
         .pipe(plugins.concat('all.js'))
         .pipe(gulp.dest('./output/js/'))
 });
+
 //拼接雪碧图
 gulp.task('sprites', function () {
-    gulp.src('public/css/*.css')
+    gulp.src('output/css/*.css')
         .pipe(plugins.cssSpritesmith({
-            imagepath: './public/imgs/slice/',
-            spritedest: './public/imgs/sprite/'
+            imagepath: './output/imgs/slice/',
+            spritedest: './output/imgs/sprite/',
+            spritepath: '../imgs/sprite/'
         }))
         .pipe(gulp.dest('./'));
-})
-//js压缩
-gulp.task('minify-js', function () {
-    gulp.src('public/js/*.js')
-        .pipe(plugins.uglify())
-        .pipe(gulp.dest('./'));
 });
+
 
 //创建server服务
 gulp.task('connect', function () {
@@ -75,7 +82,7 @@ gulp.task('serve', ['connect'], function () {
     opn('http://localhost:' + conf.port);
 });
 
-gulp.task('watch', ['connect', 'serve'], function () {
+gulp.task('watch', ['connect', 'serve', 'sass'], function () {
     var server = plugins.livereload();
     gulp.watch(['public/*.html', 'public/css/*.css', 'public/js/*.js'])
         .on('change', function (file) {
@@ -83,6 +90,7 @@ gulp.task('watch', ['connect', 'serve'], function () {
         })
 });
 
-gulp.task('test', function () {
-    console.log(conf);
-})
+gulp.task('build', ['minify-html', 'concatCss', 'minifyJs'], function () {
+    gulp.src('public/imgs/**/*')
+        .pipe(gulp.dest('output/imgs/'))
+});
