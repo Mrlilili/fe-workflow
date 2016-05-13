@@ -20,7 +20,8 @@
     "tmodjs": "^1.0.3"
   },
   "devDependencies": {
-    "gulp-livereload": "^3.8.1"
+    "gulp-livereload": "^3.8.1",
+    "gulp-refresh": "^1.1.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
