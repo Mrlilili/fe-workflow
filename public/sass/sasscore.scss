@@ -1,0 +1,9 @@
+@import "../lib/sassCore/base";
+@import "../lib/sassCore/ext/animate/fade";
+@include animate-fadeInDown;
+#ani{
+  height: 100px;
+  width: 100px;
+  background: black;
+  @extend .fadeInDown;
+}

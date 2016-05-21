@@ -1,0 +1,20 @@
+{
+  "name": "aaron-workflow",
+  "description": "lightbox",
+  "main": "index.js",
+  "authors": [
+    "Aaron <15360085185>"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "1.9"
+  }
+}

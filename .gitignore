@@ -3,3 +3,5 @@ node_modules
 .idea
 useref
 output
+public/lib/jquery/
+public/lib/bootstrap/

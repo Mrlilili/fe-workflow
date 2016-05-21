@@ -1,0 +1,28 @@
+#lightBoxMask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, .5);
+  .imgBox {
+    //margin: auto;
+    //position: absolute;
+    //top: 0;
+    //left: 0;
+    //bottom: 0;
+    //right: 0;
+    display: inline-block;
+    width: 30%;
+    //width: 350px;
+    //height: 200px;
+    background: #79d9cf;
+    border: 5px solid #f2f2f2;
+    border-radius: 10px;
+    img{
+      width:100%;
+
+    }
+  }
+}
+

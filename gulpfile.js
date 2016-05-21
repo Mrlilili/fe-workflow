@@ -84,9 +84,11 @@ gulp.task('serve', ['connect'], function () {
 
 gulp.task('watch', ['connect', 'serve', 'sass'], function () {
     var server = plugins.livereload();
-    gulp.watch(['public/*.html', 'public/css/*.css', 'public/js/*.js'])
+    gulp.watch(['public/*.html', 'public/css/*.css','public/js/*.js'])
         .on('change', function (file) {
+
             server.changed(file.path);
+            console.log('资源已同步');
         })
 });
 
