@@ -62,6 +62,17 @@ gulp.task('sprites', function () {
 });
 
 
+//jade模板处理
+gulp.task('jade2html', function () {
+    gulp.watch('public/tpl/pages/*.jade').on('change', function () {
+        gulp.src('public/tpl/pages/*.jade')
+            .pipe(plugins.jade({
+                pretty: true
+            }))
+            .pipe(gulp.dest('./public/'))
+    })
+})
+
 //创建server服务
 gulp.task('connect', function () {
     var connect = require('connect');
@@ -76,19 +87,19 @@ gulp.task('connect', function () {
             console.log('Started connect web server on http://localhost:' + conf.port);
         });
 });
+
+
 //在浏览器中打开
 gulp.task('serve', ['connect'], function () {
     var opn = require('opn');
     opn('http://localhost:' + conf.port);
 });
 
-gulp.task('watch', ['connect', 'serve', 'sass'], function () {
+gulp.task('watch', ['sass', 'jade2html','connect', 'serve'], function () {
     var server = plugins.livereload();
-    gulp.watch(['public/*.html', 'public/css/*.css','public/js/*.js'])
+    gulp.watch(['public/*.html', 'public/css/*.css', 'public/js/*.js'])
         .on('change', function (file) {
-
             server.changed(file.path);
-            console.log('资源已同步');
         })
 });
 

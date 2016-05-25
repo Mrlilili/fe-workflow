@@ -1,0 +1,18 @@
+doctype html
+html
+  head
+    block val
+    title #{title}
+    - if(keyword)
+     meta(name="keywords" content=keyword)
+    -if(description)
+     meta(name="description" content=description)
+    - if (stylesheet)
+      each val in stylesheet
+        link(type="text/css",rel="stylesheet",href=val)
+    body
+      block content
+      - if (jsfile)
+        each val in jsfile
+          script(src=val)
+

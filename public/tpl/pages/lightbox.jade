@@ -1,0 +1,18 @@
+extends ../layouts/default
+block val
+  - var title = '图片灯箱效果'
+  - var keyword = '图片灯箱效果'
+  - var description = '图片灯箱效果'
+  - var stylesheet = ['lib/bootstrap/dist/css/bootstrap.css','css/index.css']
+  - var jsfile = ['lib/jquery/jquery.js','js/lightbox.js','js/index.js']
+
+block content
+  .container
+    .row.lightBox
+      -for(var i = 0;i<10;i++)
+        .col-md-2.linghtBoxItem
+          img(src="http://usr.im/200x300?text="+i alt=i)
+
+
+
+
