@@ -9,10 +9,9 @@ html
      meta(name="description" content=description)
     - if (stylesheet)
       each val in stylesheet
-        link(type="text/css",rel="stylesheet",href=val)
+        link(type="text/css",rel="stylesheet",href=val+'?v='+timeStamp)
     body
       block content
       - if (jsfile)
         each val in jsfile
-          script(src=val)
-
+          script(src=val+'?v='+timeStamp)

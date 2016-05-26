@@ -64,7 +64,7 @@ gulp.task('sprites', function () {
 
 //jade模板处理
 gulp.task('jade2html', function () {
-    gulp.watch('public/tpl/pages/*.jade').on('change', function () {
+    gulp.watch('public/tpl/**/*.jade').on('change', function () {
         gulp.src('public/tpl/pages/*.jade')
             .pipe(plugins.jade({
                 pretty: true
@@ -91,15 +91,19 @@ gulp.task('connect', function () {
 
 //在浏览器中打开
 gulp.task('serve', ['connect'], function () {
-    var opn = require('opn');
-    opn('http://localhost:' + conf.port);
+    if (conf.autoOpenBrowser) {
+        var opn = require('opn');
+        opn('http://localhost:' + conf.port);
+    }
+
 });
 
-gulp.task('watch', ['sass', 'jade2html','connect', 'serve'], function () {
+gulp.task('watch', ['sass', 'jade2html', 'connect', 'serve'], function () {
     var server = plugins.livereload();
     gulp.watch(['public/*.html', 'public/css/*.css', 'public/js/*.js'])
         .on('change', function (file) {
             server.changed(file.path);
+            console.log('资源已更新');
         })
 });
 

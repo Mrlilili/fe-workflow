@@ -1,5 +1,6 @@
 extends ../layouts/default
 block val
+  - var timeStamp = new Date().getTime();
   - var title = '图片灯箱效果'
   - var keyword = '图片灯箱效果'
   - var description = '图片灯箱效果'
@@ -10,9 +11,8 @@ block content
   .container
     .row.lightBox
       -for(var i = 0;i<10;i++)
-        .col-md-2.linghtBoxItem
+        .col-md-2.lightBoxItem
           img(src="http://usr.im/200x300?text="+i alt=i)
-
 
 
 

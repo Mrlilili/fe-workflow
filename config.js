@@ -3,5 +3,6 @@
  * fas
  */
 module.exports = {
-    port:'4411'
+    port:'9587',
+    autoOpenBrowser:false
 }

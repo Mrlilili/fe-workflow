@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>456</title>
-    <meta name="keywords" content="关键字">
-    <meta name="description" content="描述">
-    <link type="text/css" rel="stylesheet" href="123.css">
-    <body>
-      <h1>it is test</h1>
-      <script src="465.js"></script>
-    </body>
-  </head>
+<head>
+<body>
+<script src="lib/seajs/dist/sea.js"></script>
+<script>
+    seajs.config({
+        base:'./',
+
+        alias:{
+            'jquery':'lib/jquery/jquery-cmdized'
+        }
+    })
+
+    seajs.use('./js/seatest')
+</script>
+</body>
+</head>
 </html>

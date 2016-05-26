@@ -4,6 +4,7 @@ function LightBox(dom) {
 }
 LightBox.prototype = {
     initEvent: function () {
+
         var item = this.dom.find('.lightBoxItem');
         item.on('click', this.openImg);
     },
