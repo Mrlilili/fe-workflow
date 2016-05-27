@@ -79,12 +79,7 @@ gulp.task('jade2html', function () {
 //webpack打包
 gulp.task('webpack', function () {
     return gulp.src('./public/js/page/webpack/src/index.js')
-        .pipe(plugins.webpack({
-            output: {
-                publicPath: '/js/page/webpack/dist/',
-                filename: '[name].js',
-            },
-        }))
+        .pipe(plugins.webpack(require('./webpack.config.js')))
         .pipe(gulp.dest('./public/js/page/webpack/dist/'));
 });
 //创建目录

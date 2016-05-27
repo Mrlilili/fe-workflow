@@ -4,5 +4,6 @@
  */
 module.exports = {
     port:'9587',
+    jspath:'./public/js/',
     autoOpenBrowser:false
 }

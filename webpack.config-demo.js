@@ -11,7 +11,7 @@ var glob = require(path.join(MODULE_PATH, 'glob'));
 var jsPath = './public/assets/js/';
 
 var entries = {};
-console.log('g:',path.join(jsPath, 'dist'));
+
 glob.sync('./public/assets/js/page/**/*.js').forEach(function (filePath) {
   var prop = path.basename(filePath, '.js');
   entries[prop] = filePath;
