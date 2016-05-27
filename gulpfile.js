@@ -67,10 +67,29 @@ gulp.task('jade2html', function () {
     gulp.watch('public/tpl/**/*.jade').on('change', function () {
         gulp.src('public/tpl/pages/*.jade')
             .pipe(plugins.jade({
-                pretty: true
+                pretty: true,
+                data:{
+                    'testdata':'this is test data'
+                }
             }))
             .pipe(gulp.dest('./public/'))
     })
+})
+
+//webpack打包
+gulp.task('webpack', function () {
+    return gulp.src('./public/js/page/webpack/src/index.js')
+        .pipe(plugins.webpack({
+            output: {
+                publicPath: '/js/page/webpack/dist/',
+                filename: '[name].js',
+            },
+        }))
+        .pipe(gulp.dest('./public/js/page/webpack/dist/'));
+});
+//创建目录
+gulp.task('cf',function(){
+    gulp.dest('./testf/');
 })
 
 //创建server服务

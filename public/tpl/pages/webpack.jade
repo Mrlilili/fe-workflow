@@ -1,0 +1,12 @@
+extends ../layouts/default
+block val
+  - var timeStamp = new Date().getTime();
+  - var title = 'webpack test'
+  - var keyword = 'webpack test'
+  - var description = 'webpack test'
+  - var stylesheet = []
+  - var jsfile = ['./js/page/webpack/dist/main.js']
+
+block content
+  p.
+    it is webpack test
