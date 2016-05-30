@@ -3,7 +3,7 @@ module.exports = function (outputPath) {
     return {
         output: {
             publicPath: 'js/page/' + outputPath + '/dist/',
-            filename: '[name].js',
+            filename: 'index.js',
         },
     }
 }

@@ -5,6 +5,7 @@ var plugins = require('gulp-load-plugins')();
 var conf = require('./config');
 var fs = require('fs');
 var path = require('path');
+var outputJsPath = null;
 //压缩HTML
 gulp.task('minify-html', function () {
     gulp.src('public/*.html')
@@ -94,6 +95,11 @@ gulp.task('webpack', function () {
                         gulp.src(sourcePath)
                             .pipe(plugins.webpack(require('./webpack.config.js')(srcPath[i])))
                             .pipe(gulp.dest(outputPath));
+                        jade2htmlFuc('./js/page/' + srcPath[i] + '/dist/index.js')
+                        //if(outputJsPath !== 'js/page/' + outputPath + '/dist/'){
+                        //    outputJsPath ='js/page/' + outputPath + '/dist/index.js'
+                        //    jade2htmlFuc(outputJsPath)
+                        //}
                     }
                 })
             })(i)
