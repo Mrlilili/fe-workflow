@@ -3,6 +3,8 @@ var gulp = require('gulp');
 //加载gulp-load-plugins插件，并马上运行它
 var plugins = require('gulp-load-plugins')();
 var conf = require('./config');
+var fs = require('fs');
+var path = require('path');
 //压缩HTML
 gulp.task('minify-html', function () {
     gulp.src('public/*.html')
@@ -63,29 +65,42 @@ gulp.task('sprites', function () {
 
 
 //jade模板处理
-gulp.task('jade2html', function () {
-    gulp.watch('public/tpl/**/*.jade').on('change', function () {
-        gulp.src('public/tpl/pages/*.jade')
-            .pipe(plugins.jade({
-                pretty: true,
-                data:{
-                    'testdata':'this is test data'
-                }
-            }))
-            .pipe(gulp.dest('./public/'))
-    })
-})
+var jade2htmlFuc = function () {
+    var config = {
+        pretty: true
+    };
+    if(!!arguments[0]){
+        config.data = {jsPath:arguments[0]}
+    }
+    gulp.src('public/tpl/pages/*.jade')
+        .pipe(plugins.jade(config))
+        .pipe(gulp.dest('./public/'))
+}
+gulp.task('jade2html', jade2htmlFuc)
+
 
 //webpack打包
 gulp.task('webpack', function () {
-    return gulp.src('./public/js/page/webpack/src/index.js')
-        .pipe(plugins.webpack(require('./webpack.config.js')))
-        .pipe(gulp.dest('./public/js/page/webpack/dist/'));
+    var pagePath = path.join(conf.jspath, 'page');
+    fs.readdir(pagePath, function (err, data) {
+        var srcPath = data;
+        for (var i = 0; i < srcPath.length; i++) {
+            (function (i) {
+                fs.exists(path.join(pagePath, srcPath[i] + '/src/index.js'), function (res) {
+                    //console.log(res, i);
+                    if (res == true) {
+                        var sourcePath = path.join(pagePath, srcPath[i] + '/src/index.js');
+                        var outputPath = path.join(pagePath, srcPath[i] + '/dist/');
+                        gulp.src(sourcePath)
+                            .pipe(plugins.webpack(require('./webpack.config.js')(srcPath[i])))
+                            .pipe(gulp.dest(outputPath));
+                    }
+                })
+            })(i)
+        }
+    });
 });
-//创建目录
-gulp.task('cf',function(){
-    gulp.dest('./testf/');
-})
+
 
 //创建server服务
 gulp.task('connect', function () {
@@ -114,10 +129,15 @@ gulp.task('serve', ['connect'], function () {
 
 gulp.task('watch', ['sass', 'jade2html', 'connect', 'serve'], function () {
     var server = plugins.livereload();
+    gulp.watch('public/tpl/**/*.jade')
+        .on('change', function () {
+            jade2htmlFuc();
+        })
+
     gulp.watch(['public/*.html', 'public/css/*.css', 'public/js/*.js'])
         .on('change', function (file) {
             server.changed(file.path);
-            console.log('资源已更新');
+
         })
 });
 

@@ -1,6 +1,9 @@
-module.exports = {
-    output: {
-        publicPath: '/js/page/webpack/dist/',
-        filename: '[name].js',
-    },
+module.exports = function (outputPath) {
+    console.log(outputPath);
+    return {
+        output: {
+            publicPath: 'js/page/' + outputPath + '/dist/',
+            filename: '[name].js',
+        },
+    }
 }
