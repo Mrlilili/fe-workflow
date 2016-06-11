@@ -66,14 +66,14 @@ gulp.task('sprites', function () {
 
 
 //jade模板处理
-var jade2htmlFuc = function () {
+var jade2htmlFuc = function (source, outputPath) {
     var config = {
         pretty: true
     };
-    if(!!arguments[0]){
-        config.data = {jsPath:arguments[0]}
+    if (!!arguments[0]) {
+        config.data = {jsPath: outputPath}
     }
-    gulp.src('public/tpl/pages/*.jade')
+    gulp.src('public/tpl/pages/' + source + '.jade')
         .pipe(plugins.jade(config))
         .pipe(gulp.dest('./public/'))
 }
@@ -82,29 +82,39 @@ gulp.task('jade2html', jade2htmlFuc)
 
 //webpack打包
 gulp.task('webpack', function () {
-    var pagePath = path.join(conf.jspath, 'page');
-    fs.readdir(pagePath, function (err, data) {
-        var srcPath = data;
-        for (var i = 0; i < srcPath.length; i++) {
-            (function (i) {
-                fs.exists(path.join(pagePath, srcPath[i] + '/src/index.js'), function (res) {
-                    //console.log(res, i);
-                    if (res == true) {
-                        var sourcePath = path.join(pagePath, srcPath[i] + '/src/index.js');
-                        var outputPath = path.join(pagePath, srcPath[i] + '/dist/');
-                        gulp.src(sourcePath)
-                            .pipe(plugins.webpack(require('./webpack.config.js')(srcPath[i])))
-                            .pipe(gulp.dest(outputPath));
-                        jade2htmlFuc('./js/page/' + srcPath[i] + '/dist/index.js')
-                        //if(outputJsPath !== 'js/page/' + outputPath + '/dist/'){
-                        //    outputJsPath ='js/page/' + outputPath + '/dist/index.js'
-                        //    jade2htmlFuc(outputJsPath)
-                        //}
-                    }
-                })
-            })(i)
-        }
-    });
+
+    gulp.watch('public/js/page/*/src/*.js').on('change', function () {
+        var pagePath = path.join(conf.jspath, 'page');
+        fs.readdir(pagePath, function (err, data) {
+            var srcPath = data;
+            for (var i = 0; i < srcPath.length; i++) {
+                (function (i) {
+                    fs.exists(path.join(pagePath, srcPath[i] + '/src/index.js'), function (res) {
+                        //console.log(res, i);
+                        if (res == true) {
+                            var sourcePath = path.join(pagePath, srcPath[i] + '/src/index.js');
+                            var outputPath = path.join(pagePath, srcPath[i] + '/dist/');
+                            gulp.src(sourcePath)
+                                .pipe(plugins.webpack(require('./webpack.config.js')(srcPath[i])))
+                                .pipe(gulp.dest(outputPath));
+
+
+                            jade2htmlFuc(srcPath[i], './js/page/' + srcPath[i] + '/dist/index.js')
+
+
+                            //if(outputJsPath !== 'js/page/' + outputPath + '/dist/'){
+                            //    outputJsPath ='js/page/' + outputPath + '/dist/index.js'
+                            //    jade2htmlFuc(outputJsPath)
+                            //}
+                        }
+                    })
+                })(i)
+            }
+        });
+
+    })
+
+
 });
 
 
@@ -115,7 +125,7 @@ gulp.task('connect', function () {
         .use(require('connect-livereload')({port: 35729}))
         .use(connect.static('public'))
         .use(connect.directory('public'));
-
+    console.log(conf.port);
     require('http').createServer(app)
         .listen(conf.port)
         .on('listening', function () {
@@ -133,11 +143,17 @@ gulp.task('serve', ['connect'], function () {
 
 });
 
-gulp.task('watch', ['sass', 'jade2html', 'connect', 'serve'], function () {
+gulp.task('watch', ['sass', 'connect', 'serve'], function () {
     var server = plugins.livereload();
     gulp.watch('public/tpl/**/*.jade')
-        .on('change', function () {
-            jade2htmlFuc();
+        .on('change', function (file) {
+            /**
+             * 问题描述
+             * jade生成的路径问题
+             */
+            console.log();
+            jade2htmlFuc(file.path);
+            console.log('12');
         })
 
     gulp.watch(['public/*.html', 'public/css/*.css', 'public/js/*.js'])

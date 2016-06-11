@@ -3,7 +3,7 @@
  * fas
  */
 module.exports = {
-    port:'9587',
+    port:'3821',
     jspath:'./public/js/',
     autoOpenBrowser:false
 }
