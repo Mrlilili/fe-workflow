@@ -66,7 +66,7 @@ gulp.task('sprites', function () {
 
 
 //jade模板处理
-var jade2htmlFuc = function (source, outputPath) {
+var jade2htmlTask = function (source, outputPath) {
     var config = {
         pretty: true
     };
@@ -77,7 +77,12 @@ var jade2htmlFuc = function (source, outputPath) {
         .pipe(plugins.jade(config))
         .pipe(gulp.dest('./public/'))
 }
-gulp.task('jade2html', jade2htmlFuc)
+gulp.task('jade2html', function(){
+    gulp.watch('public/tpl/**/*.jade')
+        .on('change', function () {
+            webpackTask()
+        })
+})
 
 
 //webpack打包
@@ -88,18 +93,13 @@ function webpackTask() {
         for (var i = 0; i < srcPath.length; i++) {
             (function (i) {
                 fs.exists(path.join(pagePath, srcPath[i] + '/src/index.js'), function (res) {
-                    //console.log(res, i);
                     if (res == true) {
-                        var sourcePath = path.join(pagePath, srcPath[i] + '/src/index.js');
-                        var outputPath = path.join(pagePath, srcPath[i] + '/dist/');
+                        var sourcePath = path.join(pagePath, srcPath[i] + '/src/index.js');//打包前的目录
+                        var outputPath = path.join(pagePath, srcPath[i] + '/dist/');//打包后的目录
                         gulp.src(sourcePath)
                             .pipe(plugins.webpack(require('./webpack.config.js')(srcPath[i])))
                             .pipe(gulp.dest(outputPath));
-                        jade2htmlFuc(srcPath[i], './js/page/' + srcPath[i] + '/dist/index.js')
-                        //if(outputJsPath !== 'js/page/' + outputPath + '/dist/'){
-                        //    outputJsPath ='js/page/' + outputPath + '/dist/index.js'
-                        //    jade2htmlFuc(outputJsPath)
-                        //}
+                        jade2htmlTask(srcPath[i], './js/page/' + srcPath[i] + '/dist/index.js')
                     }
                 })
             })(i)
@@ -107,10 +107,7 @@ function webpackTask() {
     });
 }
 gulp.task('webpack', function () {
-
     gulp.watch('public/js/page/*/src/*.js').on('change', webpackTask)
-
-
 });
 
 
@@ -121,7 +118,7 @@ gulp.task('connect', function () {
         .use(require('connect-livereload')({port: 35729}))
         .use(connect.static('public'))
         .use(connect.directory('public'));
-    console.log(conf.port);
+
     require('http').createServer(app)
         .listen(conf.port)
         .on('listening', function () {
@@ -139,13 +136,8 @@ gulp.task('serve', ['connect'], function () {
 
 });
 
-gulp.task('watch', ['sass', 'webpack', 'connect', 'serve'], function () {
+gulp.task('watch', ['sass', 'webpack','jade2html', 'connect', 'serve'], function () {
     var server = plugins.livereload();
-    gulp.watch('public/tpl/**/*.jade')
-        .on('change', function () {
-            webpackTask()
-        })
-
     gulp.watch(['public/*.html', 'public/css/*.css', 'public/js/*.js'])
         .on('change', function (file) {
             server.changed(file.path);
