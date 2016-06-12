@@ -108,9 +108,7 @@ function webpackTask() {
 }
 gulp.task('webpack', function () {
 
-    gulp.watch('public/js/page/*/src/*.js').on('change', function () {
-        webpackTask();
-    })
+    gulp.watch('public/js/page/*/src/*.js').on('change', webpackTask)
 
 
 });
@@ -151,7 +149,6 @@ gulp.task('watch', ['sass', 'webpack', 'connect', 'serve'], function () {
     gulp.watch(['public/*.html', 'public/css/*.css', 'public/js/*.js'])
         .on('change', function (file) {
             server.changed(file.path);
-
         })
 });
 
