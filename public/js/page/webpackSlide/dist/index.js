@@ -34,7 +34,7 @@
 /******/ 	__webpack_require__.c = installedModules;
 
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "/js/page/webpack/dist/";
+/******/ 	__webpack_require__.p = "js/page/webpackSlide/dist/";
 
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(0);
@@ -44,14 +44,7 @@
 /* 0 */
 /***/ function(module, exports) {
 
-	//require.ensure('../../../../lib/jquery/dist/jquery', function (require) {
-	    //var $ = require('../../../../lib/jquery/dist/jquery');
-
-	    console.log($.fn.jquery);
-	    console.log('this is webpack index.js');
-
-	//})
-
+	alert(7891);
 
 /***/ }
 /******/ ]);

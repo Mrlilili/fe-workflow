@@ -1,0 +1,25 @@
+extends ../layouts/default
+block val
+  - var timeStamp = new Date().getTime();
+  - var title = '跑马灯slide'
+  - var keyword = '跑马灯slide'
+  - var description = '跑马灯slide'
+  - var stylesheet = ['css/slide.css']
+  - var jsfile = [jsPath]
+
+block content
+  .slide
+    .btn.icon-prev
+    ul.slideBox
+      -for(var i =1;i<=5;i++)
+        li.slideItem
+          img(src='imgs/slide/'+i+'.jpg')
+      -for(var i =1;i<=5;i++)
+        li.slideItem
+          img(src='imgs/slide/' + i + '.jpg')
+    .btn.icon-next
+
+
+
+
+
