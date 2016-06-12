@@ -1,30 +1,46 @@
 @import "../lib/sassCore/base";
-body{
+
+body {
   //background: black;
 }
-.slide{
+
+.slide {
   position: relative;
-  .btn{
+  .btn {
     position: absolute;
-    top:0;
+    top: 0;
     z-index: 999;
     opacity: .8;
     cursor: pointer;
-    &.icon-prev{
+    &.icon-prev {
       left: 0;
-      background: url("../imgs/slide/btn_l.png")  no-repeat center center;
+      background: url("../imgs/slide/btn_l.png") no-repeat center center;
     }
-    &.icon-next{
+    &.icon-next {
       right: 0;
-      background: url("../imgs/slide/btn_r.png")  no-repeat center center;
+      background: url("../imgs/slide/btn_r.png") no-repeat center center;
     }
   }
-  .slideItem{
+  .slideItem {
     //transition: all .5s;
     position: absolute;
-    img{
+    img {
       width: 100%;
       height: 100%;
     }
   }
+}
+
+.icon1, .icon2 {
+  display: block;
+  height: 29px;
+  width: 29px;
+  background: url("../imgs/slice/avatar.png");
+}
+.icon3 {
+  display: block;
+  height: 39px;
+  width: 39px;
+  background: url("../imgs/slice/tu.png");
+
 }

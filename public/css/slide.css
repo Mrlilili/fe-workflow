@@ -478,3 +478,15 @@ textarea::-webkit-input-placeholder {
     .slide .slideItem img {
       width: 100%;
       height: 100%; }
+
+.icon1, .icon2 {
+  display: block;
+  height: 29px;
+  width: 29px;
+  background: url("../imgs/slice/avatar.png"); }
+
+.icon3 {
+  display: block;
+  height: 39px;
+  width: 39px;
+  background: url("../imgs/slice/tu.png"); }

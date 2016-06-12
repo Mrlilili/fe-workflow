@@ -36,7 +36,7 @@ gulp.task('prefix', function () {
 //CSS文件合并压缩
 gulp.task('concatCss', function () {
     gulp.src('public/css/*.css')
-        .pipe(plugins.concat('all.css'))
+        //.pipe(plugins.concat('all.css'))
         .pipe(plugins.cleanCss({compatibility: 'ie8'}))
         .pipe(gulp.dest('./output/css/'))
 });
@@ -47,21 +47,30 @@ gulp.task('minifyJs', function () {
         .pipe(gulp.dest('./output/js/'));
 });
 //JS文件合并
-gulp.task('concat-js', function () {
+gulp.task('concatJs', function () {
     gulp.src('public/js/*.js')
         .pipe(plugins.concat('all.js'))
         .pipe(gulp.dest('./output/js/'))
 });
 
+
+//图片压缩 https://tinypng.com/developers
+gulp.task('tinyimg', function () {
+    return gulp.src(['public/imgs/**/*.png', 'public/imgs/**/*.jpg'])
+        .pipe(plugins.tinyimg(conf.tinyImgKey))
+        .pipe(gulp.dest('./output/imgs/'));
+});
 //拼接雪碧图
 gulp.task('sprites', function () {
-    gulp.src('output/css/*.css')
+    console.log(4);
+    gulp.src('./public/css/*.css')
         .pipe(plugins.cssSpritesmith({
-            imagepath: './output/imgs/slice/',
-            spritedest: './output/imgs/sprite/',
+            imagepath: './public/imgs/slice/',
+            spritedest: './public/imgs/sprite/',
             spritepath: '../imgs/sprite/'
         }))
         .pipe(gulp.dest('./'));
+    console.log(5);
 });
 
 
@@ -77,7 +86,7 @@ var jade2htmlTask = function (source, outputPath) {
         .pipe(plugins.jade(config))
         .pipe(gulp.dest('./public/'))
 }
-gulp.task('jade2html', function(){
+gulp.task('jade2html', function () {
     gulp.watch('public/tpl/**/*.jade')
         .on('change', function () {
             webpackTask()
@@ -136,7 +145,7 @@ gulp.task('serve', ['connect'], function () {
 
 });
 
-gulp.task('watch', ['sass', 'webpack','jade2html', 'connect', 'serve'], function () {
+gulp.task('watch', ['sass', 'webpack', 'jade2html', 'connect', 'serve'], function () {
     var server = plugins.livereload();
     gulp.watch(['public/*.html', 'public/css/*.css', 'public/js/*.js'])
         .on('change', function (file) {
@@ -144,7 +153,17 @@ gulp.task('watch', ['sass', 'webpack','jade2html', 'connect', 'serve'], function
         })
 });
 
-gulp.task('build', ['minify-html', 'concatCss', 'minifyJs'], function () {
-    gulp.src('public/imgs/**/*')
-        .pipe(gulp.dest('output/imgs/'))
+gulp.task('moveFile',function(){
+    console.log(1);
+    gulp.src('./public/css/*')
+        .pipe(gulp.dest('./output/css/'));
+    console.log(2);
+    gulp.src('./public/imgs/*/*')
+        .pipe(gulp.dest('./output/imgs/'));
+    console.log(3);
+
+})
+
+gulp.task('build',['sprites','moveFile'],function(){
+
 });

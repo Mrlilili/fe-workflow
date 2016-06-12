@@ -1,10 +1,4 @@
 require('jquery');
-
-
-
-
-
-
 ;(function ($) {
     var slide = function (dom) {
         var self = this;
