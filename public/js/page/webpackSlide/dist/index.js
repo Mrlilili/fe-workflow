@@ -46,9 +46,9 @@
 
 	__webpack_require__(1);
 	;(function ($) {
+
 	    var slide = function (dom) {
 	        var self = this;
-
 	        this.self = $(dom);
 	        this.setting = {
 	            boxW: 1000,

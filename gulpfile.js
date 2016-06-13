@@ -3,8 +3,6 @@ var gulp = require('gulp');
 //加载gulp-load-plugins插件，并马上运行它
 var plugins = require('gulp-load-plugins')();
 var conf = require('./config');
-var fs = require('fs');
-var path = require('path');
 //var buildDistTask = require('./_tasks/TaskBuildDist')(plugins);
 var outputJsPath = null;
 //压缩HTML

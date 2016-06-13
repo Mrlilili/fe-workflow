@@ -1,7 +1,9 @@
 /**
- * Created by admin-b on 2016/6/13.
+ * Created by heyAaron on 2016/6/13.
  * DevTask
  */
+var path = require('path');
+var fs = require('fs');
 function DevTask(gulp, plugins, conf) {
     //Sass编译
     gulp.task('sass', function () {
@@ -32,7 +34,6 @@ function DevTask(gulp, plugins, conf) {
             }
         });
     }
-
     gulp.task('webpack', function () {
         gulp.watch('public/js/page/*/src/*.js').on('change', webpackTask)
     });
