@@ -5,15 +5,13 @@
 
 var path = require('path');
 var fs = require('fs');
-var conf = require('../config');
 
 
-function OutputTask(gulp, plugins) {
 
-
+function OutputTask(gulp, plugins,conf) {
     var jade2htmlTask = function (source, outputPath) {
         var config = {
-            pretty: true
+            pretty: false
         };
         if (!!arguments[0]) {
             config.data = {jsPath: outputPath}
@@ -22,7 +20,6 @@ function OutputTask(gulp, plugins) {
             .pipe(plugins.jade(config))
             .pipe(gulp.dest('./output/'))
     }
-
 
     gulp.task('moveCssFile', function () {
         return gulp.src('./public/css/*')
