@@ -26,6 +26,7 @@ function OutputTask(gulp, plugins) {
 
     gulp.task('moveCssFile', function () {
         return gulp.src('./public/css/*')
+
             .pipe(gulp.dest('./output/css/'));
     })
     gulp.task('moveImgsFile', function () {
@@ -34,7 +35,28 @@ function OutputTask(gulp, plugins) {
 
     })
 
+    gulp.task('tinyimg', function () {
+        return gulp.src(['public/imgs/**/*.png', 'public/imgs/**/*.jpg'])
+            .pipe(plugins.tinyimg(conf.tinyImgKey))
+            .pipe(gulp.dest('./output/imgs/'));
+    });
 
+    gulp.task('sprite',['moveCssFile', 'moveImgsFile'],function(){
+        return gulp.src('./output/css/*.css')
+            .pipe(plugins.cssSpritesmith({
+                imagepath: './output/imgs/slice/',
+                spritedest: './output/imgs/sprite/',
+                spritepath: '../imgs/sprite/'
+            }))
+            .pipe(gulp.dest('./'));
+    })
+
+
+    gulp.task('minifyCss',['sprite'],function(){
+       return gulp.src('output/css/*.css')
+            .pipe(plugins.cleanCss({compatibility: 'ie8'}))
+            .pipe(gulp.dest('./output/css/'))
+    });
 
     gulp.task('webpackJadeTask',function(){
         var pagePath = path.join(conf.jspath, 'page');
@@ -49,6 +71,7 @@ function OutputTask(gulp, plugins) {
                                 var outputPath = path.join('./output/js',srcPath[i]);//打包后的目录
                                 gulp.src(sourcePath)
                                     .pipe(plugins.webpack(require('./webpack.config.js')(srcPath[i],'dist')))
+                                    .pipe(plugins.uglify())
                                     .pipe(gulp.dest(outputPath));
                                 jade2htmlTask(srcPath[i], './js/' + srcPath[i] + '/index.js')
                             }
@@ -59,14 +82,8 @@ function OutputTask(gulp, plugins) {
     });
 
 
-    gulp.task('build', ['moveCssFile', 'moveImgsFile','webpackJadeTask'], function () {
-        gulp.src('./output/css/*.css')
-            .pipe(plugins.cssSpritesmith({
-                imagepath: './output/imgs/slice/',
-                spritedest: './output/imgs/sprite/',
-                spritepath: '../imgs/sprite/'
-            }))
-            .pipe(gulp.dest('./'));
+    gulp.task('build', ['minifyCss','webpackJadeTask'], function () {
+
     });
 
 }

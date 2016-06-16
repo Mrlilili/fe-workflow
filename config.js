@@ -6,5 +6,5 @@ module.exports = {
     port: '3821',
     jspath: './public/js/',
     autoOpenBrowser: false,
-    tinyImgKey: 'jfmlGTMPaooazTbPT58LLUgrscEy0ho7'
+    tinyImgKey: ''
 }
