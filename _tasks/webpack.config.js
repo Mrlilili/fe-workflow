@@ -1,7 +1,7 @@
-module.exports = function (outputPath) {
+module.exports = function (outputPath,type) {
     return {
         output: {
-            publicPath: 'js/page/' + outputPath + '/dist/',
+            publicPath: type == 'dev'?'js/page/' + outputPath + '/dist/':'js/' + outputPath + '/',
             filename: 'index.js',
         },
         resolve: {

@@ -6,22 +6,38 @@
 var path = require('path');
 var fs = require('fs');
 var conf = require('../config');
+
+
 function OutputTask(gulp, plugins) {
+
+
+    var jade2htmlTask = function (source, outputPath) {
+        var config = {
+            pretty: true
+        };
+        if (!!arguments[0]) {
+            config.data = {jsPath: outputPath}
+        }
+        gulp.src('public/tpl/pages/' + source + '.jade')
+            .pipe(plugins.jade(config))
+            .pipe(gulp.dest('./output/'))
+    }
+
+
     gulp.task('moveCssFile', function () {
         return gulp.src('./public/css/*')
             .pipe(gulp.dest('./output/css/'));
     })
     gulp.task('moveImgsFile', function () {
-        gulp.src('./public/imgs/*/*')
+        return gulp.src('./public/imgs/*/*')
             .pipe(gulp.dest('./output/imgs/'));
 
     })
 
 
 
-    gulp.task('buildt',function(){
-
-            var pagePath = path.join(conf.jspath, 'page');
+    gulp.task('webpackJadeTask',function(){
+        var pagePath = path.join(conf.jspath, 'page');
             fs.readdir(pagePath, function (err, data) {
                 var srcPath = data;
                 for (var i = 0; i < srcPath.length; i++) {
@@ -32,19 +48,18 @@ function OutputTask(gulp, plugins) {
                                 var sourcePath = path.join(pagePath, srcPath[i] + '/src/index.js');//打包前的目录
                                 var outputPath = path.join('./output/js',srcPath[i]);//打包后的目录
                                 gulp.src(sourcePath)
-                                    .pipe(plugins.webpack(require('./webpack.config.js')(srcPath[i])))
+                                    .pipe(plugins.webpack(require('./webpack.config.js')(srcPath[i],'dist')))
                                     .pipe(gulp.dest(outputPath));
-                                //jade2htmlTask(srcPath[i], './js/page/' + srcPath[i] + '/dist/index.js')
+                                jade2htmlTask(srcPath[i], './js/' + srcPath[i] + '/index.js')
                             }
                         })
                     })(i)
                 }
             });
+    });
 
-    })
 
-
-    gulp.task('build', ['moveCssFile', 'moveImgsFile'], function () {
+    gulp.task('build', ['moveCssFile', 'moveImgsFile','webpackJadeTask'], function () {
         gulp.src('./output/css/*.css')
             .pipe(plugins.cssSpritesmith({
                 imagepath: './output/imgs/slice/',

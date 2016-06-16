@@ -25,7 +25,7 @@ function DevTask(gulp, plugins, conf) {
                             var sourcePath = path.join(pagePath, srcPath[i] + '/src/index.js');//打包前的目录
                             var outputPath = path.join(pagePath, srcPath[i] + '/dist/');//打包后的目录
                             gulp.src(sourcePath)
-                                .pipe(plugins.webpack(require('./webpack.config.js')(srcPath[i])))
+                                .pipe(plugins.webpack(require('./webpack.config.js')(srcPath[i],'dev')))
                                 .pipe(gulp.dest(outputPath));
                             jade2htmlTask(srcPath[i], './js/page/' + srcPath[i] + '/dist/index.js')
                         }
