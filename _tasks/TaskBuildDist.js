@@ -79,9 +79,7 @@ function OutputTask(gulp, plugins,conf) {
     });
 
 
-    gulp.task('build', ['minifyCss','webpackJadeTask'], function () {
-
-    });
+    gulp.task('build', ['minifyCss','webpackJadeTask']);
 
 }
 

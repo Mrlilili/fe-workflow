@@ -4,6 +4,15 @@ module.exports = function (outputPath,type) {
             publicPath: type == 'dev'?'js/page/' + outputPath + '/dist/':'js/' + outputPath + '/',
             filename: 'index.js',
         },
+        module: {
+            loaders:[
+
+                {
+                    test: /\.css$/,
+                    loader: 'style-loader!css-loader?modules'
+                }
+            ]
+        },
         resolve: {
             root: './public/',
             alias:{
