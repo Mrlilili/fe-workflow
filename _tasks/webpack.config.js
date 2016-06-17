@@ -20,7 +20,8 @@ module.exports = function (outputPath, type) {
         resolve: {
             root: ['./public/css/','./public/','E:/fe-workflow/public/css/'],
             alias: {
-                'jquery': 'lib/jquery/jquery'
+                'jquery': 'lib/jquery/jquery',
+                //'test':'E:/fe-workflow/public/css/test.css'
             }
         },
     }

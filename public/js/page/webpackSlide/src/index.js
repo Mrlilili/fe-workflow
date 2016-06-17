@@ -1,4 +1,6 @@
 require('jquery');
+require('test.css');
+
 
 ;(function ($) {
 
