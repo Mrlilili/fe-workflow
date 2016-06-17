@@ -18,7 +18,7 @@ module.exports = function (outputPath, type) {
             ]
         },
         resolve: {
-            root: ['./public/css/','./public/'],
+            root: ['./public/css/','./public/','E:/fe-workflow/public/css/'],
             alias: {
                 'jquery': 'lib/jquery/jquery'
             }

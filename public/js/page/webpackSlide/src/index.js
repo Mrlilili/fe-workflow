@@ -1,6 +1,5 @@
 require('jquery');
 
-require('test.css');
 ;(function ($) {
 
     var slide = function (dom) {

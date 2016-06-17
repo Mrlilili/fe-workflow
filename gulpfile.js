@@ -18,7 +18,16 @@ gulp.task('tinyimg', function () {
         .pipe(gulp.dest('./output/imgs/'));
 });
 
+gulp.task('tmod', function(){
+    var stream = gulp.src('public/tpl/tmod/*.tpl')
+        .pipe(plugins.tmod({
+            'output':'./build',
 
+        }))
+        .pipe(gulp.dest('test/build/default'));
+
+    return stream;
+});
 
 require('./_tasks/TaskBuildDist')(gulp,plugins,conf)
 require('./_tasks/TaskBuildDev')(gulp,plugins,conf)
