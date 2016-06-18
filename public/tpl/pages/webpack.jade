@@ -1,16 +1,16 @@
 extends ../layouts/default
 block val
   - var timeStamp = new Date().getTime();
-  - var title = 'webpack test'
+  - var title = 'webpack test123'
   - var keyword = 'webpack test'
   - var description = 'webpack test'
-  - var stylesheet = []
+  - var stylesheet = ['css/test.css']
   - var jsfile = [jsPath]
 
 
 block content
   p.
-    it is webpack test
+    it is webpack test 123123123
   p.
     #{test}
 

@@ -29,5 +29,5 @@ gulp.task('tmod', function(){
     return stream;
 });
 
-require('./_tasks/TaskBuildDist')(gulp,plugins,conf)
+//require('./_tasks/TaskBuildDist')(gulp,plugins,conf)
 require('./_tasks/TaskBuildDev')(gulp,plugins,conf)

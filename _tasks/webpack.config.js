@@ -7,7 +7,7 @@ console.log(path.resolve('../' , __dirname, 'public'));
 module.exports = function (outputPath, type) {
     return {
         output: {
-            publicPath: type == 'dev' ? 'js/page/' + outputPath + '/dist/' : 'js/' + outputPath + '/',
+            publicPath: type == 'dev' ? 'js/' + outputPath + '/' : 'js/' + outputPath + '/',
             filename: 'index.js',
         },
         module: {
