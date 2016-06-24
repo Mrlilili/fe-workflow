@@ -6,20 +6,20 @@ var path = require('path');
 var fs = require('fs');
 function DevTask(gulp, plugins, conf) {
     var outputPath = conf.devPath;
-    var cssPath = outputPath + '/css/';
-    var jsPath = outputPath +'/js/';
-    var imgPath = outputPath + '/imgs/';
+    var cssPath = outputPath + 'css/';
+    var jsPath = outputPath +'js/';
+    var imgPath = outputPath + 'imgs/';
 
     //jade2html
 
-    var jade2htmlTask = function (source, outputPath) {
+    var jade2htmlTask = function (source, jsPath) {
         var config = {//jadeTask配置
             pretty: true,//是否格式化
-            data:{jsPath: outputPath}//html引入JS的路径
+            data:{jsPath: jsPath}//html引入JS的路径
         };
         gulp.src('public/tpl/pages/' + source + '.jade')
             .pipe(plugins.jade(config))
-            .pipe(gulp.dest('./dev/'))
+            .pipe(gulp.dest(outputPath))
     }
     gulp.task('jade2html', function () {
         /* 每次修改jade都是webpack任务带动jade2html任务执行,

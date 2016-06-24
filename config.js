@@ -7,5 +7,5 @@ module.exports = {
 
     autoOpenBrowser: false,
     tinyImgKey: 'jfmlGTMPaooazTbPT58LLUgrscEy0ho7',
-    devPath:'./dev'
+    devPath:'./dev/'
 }

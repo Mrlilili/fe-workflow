@@ -1,0 +1,236 @@
+//
+   Created by Aaron on 16/6/21.
+
+doctype html
+html
+  head
+    meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
+    title 壁纸浏览 - Powered by pageSwitch.js
+    meta(name='viewport', content='width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,minimal-ui')
+    meta(name='format-detection', content='email=no')
+    meta(name='format-detection', content='address=no')
+    meta(name='format-detection', content='telephone=no')
+    style(type='text/css').
+      body,div{margin:0;padding:0;}
+      html,body{height:100%;}
+      body{background:#379EB6;}
+      #wrap{min-height:100%;_height:100%;min-width:320px;overflow:hidden;}
+      #imgs{position:relative;width:320px;height:568px;margin:0 auto;overflow:hidden;border-radius:15px;top:50px;z-index:1;background:url(http://www.qiqiboy.com/wp-content/themes/qtheme/images/loading.gif) no-repeat center center;}
+      #imgs.visible{overflow:visible;}
+      #imgs div{overflow:hidden;}
+      #imgs img{width:100%;height:100%;display:block;}
+      #tssel{position:absolute;top:650px;left:50%;z-index:10;width:160px;margin-left:-80px;}
+      #navs{z-index:10;position:absolute;left:50%;top:225px;margin-left:180px;width:4px;}
+      #navs a{overflow:hidden;display:block;width:2px;height:20px;border:1px solid #fff;margin:0 0 4px;transition:background 600ms ease;}
+      #navs .active{background:#fff;}
+      @media (max-width:540px) {
+        body{overflow:hidden;}
+        #navs{left:auto;right:10px;top:50%;margin-top:-117px;}
+        #imgs{position:absolute;top:0;width:100%;height:100%;margin:0;border-radius:0;}
+        #imgs img{position:absolute;top:50%;left:50%;-webkit-transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);-moz-transform:translate(-50%,-50%);transform:translate(-50%,-50%);min-height:100%;height:auto;}
+        #tssel{top:auto;bottom:10px;}
+      }
+  body
+    #wrap
+      #imgs
+        div
+          img(src='https://raw.githubusercontent.com/qiqiboy/qiqiboy.github.com/master/images/backgrounds/1.jpg')
+        div
+          img(src='https://raw.githubusercontent.com/qiqiboy/qiqiboy.github.com/master/images/backgrounds/2.jpg')
+        div
+          img(src='https://raw.githubusercontent.com/qiqiboy/qiqiboy.github.com/master/images/backgrounds/3.jpg')
+        div
+          img(src='https://raw.githubusercontent.com/qiqiboy/qiqiboy.github.com/master/images/backgrounds/4.jpg')
+        div
+          img(src='https://raw.githubusercontent.com/qiqiboy/qiqiboy.github.com/master/images/backgrounds/5.jpg')
+        div
+          img(src='https://raw.githubusercontent.com/qiqiboy/qiqiboy.github.com/master/images/backgrounds/6.jpg')
+        div
+          img(src='https://raw.githubusercontent.com/qiqiboy/qiqiboy.github.com/master/images/backgrounds/7.jpg')
+        div
+          img(src='https://raw.githubusercontent.com/qiqiboy/qiqiboy.github.com/master/images/backgrounds/8.jpg')
+        div
+          img(src='https://raw.githubusercontent.com/qiqiboy/qiqiboy.github.com/master/images/backgrounds/9.png')
+      #navs
+        a.active(href='javascript:;')
+        a(href='javascript:;')
+        a(href='javascript:;')
+        a(href='javascript:;')
+        a(href='javascript:;')
+        a(href='javascript:;')
+        a(href='javascript:;')
+        a(href='javascript:;')
+        a(href='javascript:;')
+      select#tssel
+        option(value='') 选择切页效果
+        option(value='fade') fade
+        optgroup(label='滚动效果')
+          option(value='scroll') scroll
+          option(value='scroll3d') scroll3d
+          option(value='scrollCover') scrollCover
+          option(value='scrollCoverReverse') scrollCoverReverse
+          option(value='scrollCoverIn') scrollCoverIn
+          option(value='scrollCoverOut') scrollCoverOut
+          option(value='scrollX') scrollX
+          option(value='scroll3dX') scroll3dX
+          option(value='scrollCoverX') scrollCoverX
+          option(value='scrollCoverReverseX') scrollCoverReverseX
+          option(value='scrollCoverInX') scrollCoverInX
+          option(value='scrollCoverOutX') scrollCoverOutX
+          option(value='scrollY') scrollY
+          option(value='scroll3dY') scroll3dY
+          option(value='scrollCoverY') scrollCoverY
+          option(value='scrollCoverReverseY') scrollCoverReverseY
+          option(value='scrollCoverInY') scrollCoverInY
+          option(value='scrollCoverOutY') scrollCoverOutY
+        optgroup(label='滑动效果')
+          option(value='slide') slide
+          option(value='slideCover') slideCover
+          option(value='slideCoverReverse') slideCoverReverse
+          option(value='slideCoverIn') slideCoverIn
+          option(value='slideCoverOut') slideCoverOut
+          option(value='slideX') slideX
+          option(value='slideCoverX') slideCoverX
+          option(value='slideCoverReverseX') slideCoverReverseX
+          option(value='slideCoverInX') slideCoverInX
+          option(value='slideCoverOutX') slideCoverOutX
+          option(value='slideY') slideY
+          option(value='slideCoverY') slideCoverY
+          option(value='slideCoverReverseY') slideCoverReverseY
+          option(value='slideCoverInY') slideCoverInY
+          option(value='slideCoverOutY') slideCoverOutY
+        optgroup(label='封面效果')
+          option(value='flow') flow
+          option(value='flowCover') flowCover
+          option(value='flowCoverReverse') flowCoverReverse
+          option(value='flowCoverIn') flowCoverIn
+          option(value='flowCoverOut') flowCoverOut
+          option(value='flowX') flowX
+          option(value='flowCoverX') flowCoverX
+          option(value='flowCoverReverseX') flowCoverReverseX
+          option(value='flowCoverInX') flowCoverInX
+          option(value='flowCoverOutX') flowCoverOutX
+          option(value='flowY') flowY
+          option(value='flowCoverY') flowCoverY
+          option(value='flowCoverReverseY') flowCoverReverseY
+          option(value='flowCoverInY') flowCoverInY
+          option(value='flowCoverOutY') flowCoverOutY
+        optgroup(label='裁切效果')
+          option(value='slice') slice
+          option(value='sliceX') sliceX
+          option(value='sliceY') sliceY
+        optgroup(label='缩放效果')
+          option(value='zoom') zoom
+          option(value='zoomCover') zoomCover
+          option(value='zoomCoverReverse') zoomCoverReverse
+          option(value='zoomCoverIn') zoomCoverIn
+          option(value='zoomCoverOut') zoomCoverOut
+          option(value='zoomX') zoomX
+          option(value='zoomCoverX') zoomCoverX
+          option(value='zoomCoverReverseX') zoomCoverReverseX
+          option(value='zoomCoverInX') zoomCoverInX
+          option(value='zoomCoverOutX') zoomCoverOutX
+          option(value='zoomY') zoomY
+          option(value='zoomCoverY') zoomCoverY
+          option(value='zoomCoverReverseY') zoomCoverReverseY
+          option(value='zoomCoverInY') zoomCoverInY
+          option(value='zoomCoverOutY') zoomCoverOutY
+        optgroup(label='扭曲效果')
+          option(value='skew') skew
+          option(value='skewCover') skewCover
+          option(value='skewCoverReverse') skewCoverReverse
+          option(value='skewCoverIn') skewCoverIn
+          option(value='skewCoverOut') skewCoverOut
+          option(value='skew') skewX
+          option(value='skewCoverX') skewCoverX
+          option(value='skewCoverReverseX') skewCoverReverseX
+          option(value='skewCoverInX') skewCoverInX
+          option(value='skewCoverOutX') skewCoverOutX
+          option(value='skewY') skewY
+          option(value='skewCoverY') skewCoverY
+          option(value='skewCoverReverseY') skewCoverReverseY
+          option(value='skewCoverInY') skewCoverInY
+          option(value='skewCoverOutY') skewCoverOutY
+        optgroup(label='翻转效果')
+          option(value='flip') flip
+          option(value='flip3d') flip3d
+          option(value='flipClock') flipClock
+          option(value='flipPaper') flipPaper
+          option(value='flipCover') flipCover
+          option(value='flipCoverReverse') flipCoverReverse
+          option(value='flipCoverIn') flipCoverIn
+          option(value='flipCoverOut') flipCoverOut
+          option(value='flipX') flipX
+          option(value='flip3dX') flip3dX
+          option(value='flipClockX') flipClockX
+          option(value='flipPaperX') flipPaperX
+          option(value='flipCoverX') flipCoverX
+          option(value='flipCoverReverseX') flipCoverReverseX
+          option(value='flipCoverInX') flipCoverInX
+          option(value='flipCoverOutX') flipCoverOutX
+          option(value='flipY') flipY
+          option(value='flip3dY') flip3dY
+          option(value='flipClockY') flipClockY
+          option(value='flipPaperY') flipPaperY
+          option(value='flipCoverY') flipCoverY
+          option(value='flipCoverReverseY') flipCoverReverseY
+          option(value='flipCoverInY') flipCoverInY
+          option(value='flipCoverOutY') flipCoverOutY
+        optgroup(label='爆炸效果')
+          option(value='bomb') bomb
+          option(value='bombCover') bombCover
+          option(value='bombCoverReverse') bombCoverReverse
+          option(value='bombCoverIn') bombCoverIn
+          option(value='bombCoverOut') bombCoverOut
+          option(value='bombX') bombX
+          option(value='bombCoverX') bombCoverX
+          option(value='bombCoverReverseX') bombCoverReverseX
+          option(value='bombCoverInX') bombCoverInX
+          option(value='bombCoverOutX') bombCoverOutX
+          option(value='bombY') bombY
+          option(value='bombCoverY') bombCoverY
+          option(value='bombCoverReverseY') bombCoverReverseY
+          option(value='bombCoverInY') bombCoverInY
+          option(value='bombCoverOutY') bombCoverOutY
+    script(type='text/javascript', src='./js/slide/index.js')
+    script.
+      var reg=location.search.match(/ts=([^&]*)/),
+              ts=reg&&reg[1]||'flipClock',
+              a=new pageSwitch('imgs',{
+                duration:1000,
+                start:0,
+                direction:1,
+                loop:true,
+                ease:/flip(?!Paper)/.test(ts)?'bounce':'ease',
+                transition:ts,
+                mouse:true,
+                mousewheel:true,
+                arrowkey:true
+              }),
+              navs=document.getElementById('navs').getElementsByTagName('a');
+      a.on('before',function(m,n){
+        navs[m].className='';
+        navs[n].className='active';
+      });
+      if(/^(?:scroll3d|flip)/.test(ts)){
+        document.getElementById('imgs').className='visible';
+      }
+      document.getElementById('tssel').onchange=function(){
+        location.href='?ts='+this.value;
+      }
+      var options=document.getElementById('tssel').options,
+              i=0,op;
+      while(op=options[i++]){
+        if(op.value===ts){
+          op.selected=true;
+          break;
+        }
+      }
+      i=0;
+      for(;i<navs.length;i++){
+        !function(i){
+          navs[i].onclick=function(){
+            a.slide(i);
+          }
+        }(i);
+      }
