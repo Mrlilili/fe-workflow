@@ -4,8 +4,8 @@
  */
 module.exports = {
     port: '3821',
-
-    autoOpenBrowser: false,
+    autoOpenBrowser: true,
     tinyImgKey: 'jfmlGTMPaooazTbPT58LLUgrscEy0ho7',
-    devPath:'./dev'
+    devOutputPath:'./dev',
+    distOutputPath:'./output'
 }

@@ -16,6 +16,7 @@
   ],
   "dependencies": {
     "jquery": "1.9",
-    "bootstrap": "^3.3.6"
+    "bootstrap": "^3.3.6",
+    "pure": "^0.6.0"
   }
 }

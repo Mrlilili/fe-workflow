@@ -4,18 +4,43 @@
  */
 var path = require('path');
 var fs = require('fs');
+var minimist = require('minimist');
+var rimraf = require('rimraf');
 function DevTask(gulp, plugins, conf) {
-    var outputPath = conf.devPath;
+    var outputPath = conf.devOutputPath;
     var cssPath = outputPath + '/css/';
-    var jsPath = outputPath +'/js/';
+    var jsPath = outputPath + '/js/';
     var imgPath = outputPath + '/imgs/';
+    //创建新页面，依次会创建scss、js、jade
+    gulp.task('newpage', function () {
+        var name = minimist(process.argv.slice(2)).name;
+        if(name == undefined){
+            console.error('命名不合法');
+            return ;
+        }
+        fs.exists('./public/sass/' + name + '.scss', function (exists) {
+            if (exists) {
+                console.error('文件已存在');
+            } else {
+                fs.writeFile('./public/sass/' + name + '.scss','', 'utf8')
+                fs.readFile('./_tasks/_sample/jade', 'utf8', function (err, content) {
+                    if (err) console.log(err);
+                    fs.writeFile('./public/tpl/pages/' + name + '.jade', content, 'utf8')
+                })
+                fs.mkdir('./public/js/page/' + name, function () {
+                    fs.writeFile('./public/js/page/' + name + '/index.js', '', 'utf8')
+                })
+            }
+        })
+
+    });
 
     //jade2html
 
     var jade2htmlTask = function (source, outputPath) {
         var config = {//jadeTask配置
             pretty: true,//是否格式化
-            data:{jsPath: outputPath}//html引入JS的路径
+            data: {jsPath: outputPath}//html引入JS的路径
         };
         gulp.src('public/tpl/pages/' + source + '.jade')
             .pipe(plugins.jade(config))
@@ -36,17 +61,16 @@ function DevTask(gulp, plugins, conf) {
 
     //Sass编译
     gulp.task('sass', function () {
-        var sassTask = function(){
+        var sassTask = function () {
             gulp.src('public/sass/*.scss')
                 .pipe(plugins.sass.sync().on('error', plugins.sass.logError))
                 .pipe(gulp.dest(cssPath));
         }
         sassTask();
         gulp.watch('public/sass/*.scss').on('change', function () {
-                sassTask();
+            sassTask();
         })
     });
-
 
 
     //图片移动
@@ -64,36 +88,27 @@ function DevTask(gulp, plugins, conf) {
             var srcPath = data;//页面JS目录中所有目录数组
             for (var i = 0; i < srcPath.length; i++) {
                 (function (i) {
-
                     //遍历所有目录进行处理
                     fs.exists(path.join(pageJsPath, srcPath[i] + '/index.js'), function (res) {
                         if (res == true) {
                             var sourcePath = path.join(pageJsPath, srcPath[i] + '/index.js');//打包前的目录
                             var outputPath = path.join(jsPath, srcPath[i]);//打包后的目录
-
                             gulp.src(sourcePath)
-                                .pipe(plugins.webpack(require('./webpack.config.js')(srcPath[i],'dev')))
+                                .pipe(plugins.webpack(require('./webpack.config.js')(srcPath[i])))
                                 .pipe(gulp.dest(outputPath));
-
-
-                            jade2htmlTask(srcPath[i], './js/'+srcPath[i]+'/index.js')
+                            jade2htmlTask(srcPath[i], './js/' + srcPath[i] + '/index.js')
                         }
                     })
                 })(i)
             }
         });
     }
+
     gulp.task('webpack', function () {
         webpackTask()
         gulp.watch('public/js/page/**/*.js').on('change', webpackTask)
 
     });
-
-
-
-
-
-
 
 
     //创建server服务
@@ -118,8 +133,12 @@ function DevTask(gulp, plugins, conf) {
         }
 
     });
+    //移除dev目录
+    gulp.task('rmdev',function(cb){
+       return rimraf('./dev',cb);
+    })
     //devTask
-    gulp.task('dev', ['sass', 'webpack', 'jade2html','moveImgsFile', 'connect', 'serve'], function () {
+    gulp.task('dev', ['sass', 'webpack', 'jade2html', 'moveImgsFile', 'serve', 'connect'], function () {
         var server = plugins.livereload();
         gulp.watch(['dev/*.html', 'dev/css/*.css', 'dev/js/*.js'])
             .on('change', function (file) {

@@ -1,0 +1,28 @@
+extends ../layouts/default
+block val
+  - var timeStamp = new Date().getTime();
+  - var title = '这是模板示例'
+  - var keyword = '这是模板示例'
+  - var description = '这是模板示例'
+  - var stylesheet = ['css/queryGiftRecord.css']
+  - var jsfile = [jsPath]
+
+
+block content
+  div.pure-form
+    fieldset
+      legend 查询条件
+      input(placeholder='起始日期如2015-01-01' id='startTime')
+      input(placeholder='结束日期如2015-01-02' id='endTime')
+      button.pure-button.pure-button-primary#query 查询
+
+
+
+  div
+    table.pure-table(style="width:500px;display:none")
+      thead
+
+      tbody
+
+
+
