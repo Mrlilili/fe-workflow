@@ -1,17 +1,17 @@
 extends ../layouts/default
 block val
   - var timeStamp = new Date().getTime();
-  - var title = 'webpack test123321'
-  - var keyword = 'webpack test'
-  - var description = 'webpack test'
+  - var title = '这是模板示例'
+  - var keyword = '这是模板示例'
+  - var description = '这是模板示例'
   - var stylesheet = ['css/test.css']
   - var jsfile = [jsPath]
 
 
 block content
   p.
-    it is webpack test 123123123
+    这是模版文件
   p.
-    #{test}
+    这是模板示例
 
 

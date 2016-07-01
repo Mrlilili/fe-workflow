@@ -1,1 +1,0 @@
-new LightBox('.lightBox')

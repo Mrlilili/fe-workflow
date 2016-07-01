@@ -4,8 +4,12 @@
  */
 module.exports = {
     port: '3821',
-
-    autoOpenBrowser: false,
+    autoOpenBrowser: true,
     tinyImgKey: 'jfmlGTMPaooazTbPT58LLUgrscEy0ho7',
+<<<<<<< HEAD
     devPath:'./dev/'
+=======
+    devOutputPath:'./dev',
+    distOutputPath:'./output'
+>>>>>>> refs/remotes/origin/master
 }

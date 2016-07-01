@@ -4,10 +4,10 @@ var path = require('path');
 console.log(path.resolve('../' , __dirname));
 console.log(path.resolve('../' , __dirname, 'public'));
 
-module.exports = function (outputPath, type) {
+module.exports = function (outputPath) {
     return {
         output: {
-            publicPath: type == 'dev' ? 'js/' + outputPath + '/' : 'js/' + outputPath + '/',
+            publicPath: 'js/' + outputPath + '/',
             filename: 'index.js',
         },
         module: {
